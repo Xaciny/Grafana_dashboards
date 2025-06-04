@@ -1,0 +1,1 @@
+Basic dashboards for grafana
