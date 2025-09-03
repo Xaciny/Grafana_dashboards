@@ -18,220 +18,21 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 28,
+  "id": 85,
   "links": [],
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "collapsed": false,
       "gridPos": {
-        "h": 5,
-        "w": 10,
+        "h": 1,
+        "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 1,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "up{job=\"$job\"}",
-          "legendFormat": "{{app}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "App Status",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 14,
-        "x": 10,
-        "y": 0
-      },
-      "id": 3,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "process_start_time_seconds{job=\"$job\"}",
-          "legendFormat": "{{instance}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Process Start Time",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 10,
-        "x": 0,
-        "y": 5
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "rate(process_cpu_seconds_total{job=\"$job\"}[5m])",
-          "legendFormat": "{{instance}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Usage (rate)",
-      "type": "timeseries"
+      "id": 18,
+      "panels": [],
+      "title": "Global",
+      "type": "row"
     },
     {
       "datasource": {
@@ -295,9 +96,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 14,
-        "x": 10,
-        "y": 5
+        "w": 10,
+        "x": 0,
+        "y": 1
       },
       "id": 5,
       "options": {
@@ -317,15 +118,15 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "process_resident_memory_bytes{job=\"$job\"}",
-          "legendFormat": "Resident Memory ({{instance}})",
+          "expr": "process_resident_memory_bytes{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Resident Memory",
           "range": true,
           "refId": "A"
         },
         {
           "editorMode": "code",
-          "expr": "go_memstats_alloc_bytes{job=\"$job\"}",
-          "legendFormat": "Heap Allocated ({{instance}})",
+          "expr": "go_memstats_alloc_bytes{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Heap Allocated",
           "range": true,
           "refId": "B"
         }
@@ -338,44 +139,10 @@
         "type": "prometheus",
         "uid": "prom"
       },
-      "description": "Слежение за количеством горутин и системных потоков.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -389,49 +156,48 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "h"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 10,
-        "x": 0,
-        "y": 12
+        "h": 6,
+        "w": 14,
+        "x": 10,
+        "y": 1
       },
-      "id": 6,
+      "id": 3,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {
+          "titleSize": 10
         }
       },
       "pluginVersion": "11.6.0",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "go_goroutines{job=\"$job\"}",
-          "legendFormat": "Goroutines",
+          "expr": "(time() - process_start_time_seconds{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"} ) / 3600",
+          "legendFormat": "{{instance}}  pod : {{pod}} ",
           "range": true,
           "refId": "A"
-        },
-        {
-          "editorMode": "code",
-          "expr": "go_threads{job=\"$job\"}",
-          "legendFormat": "OS Threads",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "title": "Goroutines & Threads",
-      "type": "timeseries"
+      "title": "Process Start Time (hours)",
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -497,7 +263,7 @@
         "h": 7,
         "w": 14,
         "x": 10,
-        "y": 12
+        "y": 7
       },
       "id": 7,
       "options": {
@@ -517,15 +283,15 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(go_gc_duration_seconds_sum{job=\"$job\"}[5m])",
-          "legendFormat": "GC Time Rate (s/sec)",
+          "expr": "rate(go_gc_duration_seconds_sum{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}} pod : {{pod}} :GC Time Rate (s/sec)",
           "range": true,
           "refId": "A"
         },
         {
           "editorMode": "code",
-          "expr": "go_memstats_next_gc_bytes{job=\"$job\"}",
-          "legendFormat": "Next GC Threshold (bytes)",
+          "expr": "go_memstats_next_gc_bytes{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Next GC Threshold (bytes)",
           "range": true,
           "refId": "B"
         }
@@ -538,44 +304,10 @@
         "type": "prometheus",
         "uid": "prom"
       },
-      "description": "Разделение памяти Go между heap и stack.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -594,44 +326,113 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 5,
         "w": 10,
         "x": 0,
-        "y": 19
+        "y": 8
       },
-      "id": 8,
+      "id": 14,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {
+          "titleSize": 10
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "tusd_connections_open{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "interval": "",
+          "legendFormat": "{{instance}} pod: {{pod}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Open Connections",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 10,
+        "x": 0,
+        "y": 13
+      },
+      "id": 1,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {
+          "titleSize": 10
         }
       },
       "pluginVersion": "11.6.0",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "go_memstats_heap_alloc_bytes{job=\"$job\"}",
-          "legendFormat": "Heap Usage (bytes)",
+          "expr": "up{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "editorMode": "code",
-          "expr": "go_memstats_stack_inuse_bytes{job=\"$job\"}",
-          "legendFormat": "Stack Usage (bytes)",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "title": "Heap & Stack Stats",
-      "type": "timeseries"
+      "title": "App Status",
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -689,40 +490,16 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "Bps"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Network Out (bytes/sec)"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 12,
         "w": 14,
         "x": 10,
-        "y": 19
+        "y": 14
       },
       "id": 9,
       "options": {
@@ -742,20 +519,113 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(process_network_receive_bytes_total{job=\"$job\"}[5m])",
-          "legendFormat": "Network In (bytes/sec) ",
+          "expr": "rate(process_network_receive_bytes_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}} pod : {{pod}} Network Out (bytes/sec)",
           "range": true,
           "refId": "A"
         },
         {
           "editorMode": "code",
-          "expr": "rate(process_network_transmit_bytes_total{job=\"$job\"}[5m])",
-          "legendFormat": "Network Out (bytes/sec)",
+          "expr": "rate(process_network_transmit_bytes_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}} pod : {{pod}} Network Out (bytes/sec):{{instance}}",
           "range": true,
           "refId": "B"
         }
       ],
       "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 0,
+        "y": 18
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(tusd_bytes_received{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Bytes Received (Rate)",
       "type": "timeseries"
     },
     {
@@ -842,35 +712,524 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(tusd_uploads_created{job=\"$job\"}[5m])",
-          "legendFormat": "tusd_uploads_created",
+          "expr": "rate(tusd_uploads_created{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : tusd_uploads_created",
           "range": true,
           "refId": "A"
         },
         {
           "editorMode": "code",
-          "expr": "rate(tusd_uploads_finished{job=\"$job\"}[5m])",
-          "legendFormat": "tusd_uploads_finished",
+          "expr": "rate(tusd_uploads_finished{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : tusd_uploads_finished",
           "range": true,
           "refId": "B"
         },
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(tusd_uploads_terminated{job=\"$job\"}[5m])",
-          "legendFormat": "tusd_uploads_terminated",
+          "expr": "rate(tusd_uploads_terminated{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : tusd_uploads_terminated",
           "range": true,
           "refId": "C"
         },
         {
           "editorMode": "code",
-          "expr": "rate(tusd_bytes_received{job=\"$job\"}[5m])",
-          "legendFormat": "tusd_bytes_received",
+          "expr": "rate(tusd_bytes_received{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : tusd_bytes_received",
           "range": true,
           "refId": "D"
         }
       ],
-      "title": "Tusd Uploads",
+      "title": "Tusd Uploads lifecycle",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 32
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(process_cpu_seconds_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Usage (rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "description": "Слежение за количеством горутин и системных потоков.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 8,
+        "y": 32
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "go_goroutines{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Goroutines",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "editorMode": "code",
+          "expr": "go_threads{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : OS Threads",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Goroutines & Threads",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "description": "Разделение памяти Go между heap и stack.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 15,
+        "y": 32
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "go_memstats_heap_alloc_bytes{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Heap Usage (bytes)",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "editorMode": "code",
+          "expr": "go_memstats_stack_inuse_bytes{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Stack Usage (bytes)",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Heap & Stack Stats",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Requests",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(tusd_errors_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{code}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Errors (Rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 40
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(tusd_requests_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{method}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total Requests (Rate)",
       "type": "timeseries"
     },
     {
@@ -934,10 +1293,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 11,
+        "h": 5,
+        "w": 24,
         "x": 0,
-        "y": 32
+        "y": 48
       },
       "id": 11,
       "options": {
@@ -961,16 +1320,287 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "rate(tusd_s3_request_duration_ms_sum{job=\"$job\"}[5m]) ",
+          "expr": "rate(tusd_s3_request_duration_ms_sum{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m]) ",
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "{{operation}}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{operation}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "HTTP S3 Request",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 53
+      },
+      "id": 23,
+      "panels": [],
+      "title": "S3",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 0,
+        "y": 54
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "tusd_s3_upload_semaphore_demand{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : demand",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prom"
+          },
+          "editorMode": "code",
+          "expr": "tusd_s3_upload_semaphore_limit{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{instance}}  pod : {{pod}} : limit",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "S3 Upload Semaphore Demand vs Limit",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 54
+      },
+      "id": 25,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "tusd_s3_disk_write_duration_ms_sum / tusd_s3_disk_write_duration_ms_count {job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}\r\n",
+          "legendFormat": "{{instance}}  pod : {{pod}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "S3 Disk Write Duration (Avg, ms)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 62
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "tusd_s3_request_duration_ms_sum / tusd_s3_request_duration_ms_count{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{operation}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Request Duration (Avg, ms)",
       "type": "timeseries"
     },
     {
@@ -1002,9 +1632,9 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 13,
-        "x": 11,
-        "y": 32
+        "w": 24,
+        "x": 0,
+        "y": 71
       },
       "id": 13,
       "options": {
@@ -1020,7 +1650,11 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
+        "showPercentChange": true,
+        "text": {
+          "titleSize": 11,
+          "valueSize": 50
+        },
         "textMode": "auto",
         "wideLayout": true
       },
@@ -1032,8 +1666,8 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "tusd_s3_disk_write_duration_ms_sum{job=\"$job\"}",
-          "legendFormat": "Disk Write Duration sum (ms)",
+          "expr": "tusd_s3_disk_write_duration_ms_sum{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Disk Write Duration sum (ms)",
           "range": true,
           "refId": "A"
         },
@@ -1043,10 +1677,10 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "tusd_s3_disk_write_duration_ms_count{job=\"$job\"}",
+          "expr": "tusd_s3_disk_write_duration_ms_count{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "Disk Write Duration count (ms)",
+          "legendFormat": "{{instance}}  pod : {{pod}} : Disk Write Duration count (ms)",
           "range": true,
           "refId": "B"
         },
@@ -1056,10 +1690,10 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "tusd_s3_disk_write_duration_ms",
+          "expr": "tusd_s3_disk_write_duration_ms{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "tusd Disk Write Time {{quantile}}",
+          "legendFormat": "{{instance}}  pod : {{pod}} : tusd Disk Write Time {{quantile}}",
           "range": true,
           "refId": "C"
         }
@@ -1068,15 +1702,60 @@
       "type": "stat"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 77
+      },
+      "id": 19,
+      "panels": [],
+      "title": "Hooks",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "prom"
       },
-      "description": "Показывает, насколько стабильно и быстро Prometheus собирает метрики с таргета.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -1092,112 +1771,304 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Samples Scraped (samples/sec)"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": []
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
-        "y": 38
+        "y": 78
       },
-      "id": 12,
+      "id": 16,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "11.6.0",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(scrape_duration_seconds{job=\"$job\"}[5m])",
-          "interval": "",
-          "legendFormat": "Scrape Duration (s) ({{instance}})",
+          "expr": "rate(tusd_hook_invocations_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{hooktype}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "editorMode": "code",
-          "expr": "rate(scrape_samples_scraped{job=\"$job\"}[5m])",
-          "legendFormat": "Samples Scraped (samples/sec) ({{instance}})",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "editorMode": "code",
-          "expr": "rate(promhttp_metric_handler_requests_total{job=\"$job\"}[5m])",
-          "interval": "",
-          "legendFormat": "{{code}} ({{instance}})",
-          "range": true,
-          "refId": "C"
         }
       ],
-      "title": "Prometheus Scrape Health",
-      "type": "stat"
+      "title": "Hook Invocations (Rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 78
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(tusd_hook_errors_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{hooktype}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Hook Errors (Rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 86
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(tusd_hook_errors_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m]) / rate(tusd_hook_invocations_total{job=\"integrations/tusd\", instance=~\"$Instance\", pod=~\"$pod\"}[5m])",
+          "legendFormat": "{{instance}}  pod : {{pod}} : {{hooktype}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Hook Error Ratio",
+      "type": "timeseries"
     }
   ],
   "preload": false,
   "refresh": "10s",
   "schemaVersion": 41,
-  "tags": [
-    "tusd"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
+        "allValue": "~\"$cluster\"",
+        "allowCustomValue": true,
         "current": {
-          "text": "integrations/tusd",
-          "value": "integrations/tusd"
+          "text": "yandex",
+          "value": "yandex"
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prom"
-        },
+        "definition": "label_values(cluster)",
         "includeAll": false,
-        "label": "Job",
-        "name": "job",
+        "label": "Cluster",
+        "name": "cluster",
         "options": [],
-        "query": "label_values(up, job)",
-        "refresh": 2,
+        "query": {
+          "qryType": 1,
+          "query": "label_values(cluster)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": [
+            "cl1c9149bgga4qf10juf-usum"
+          ],
+          "value": [
+            "cl1c9149bgga4qf10juf-usum"
+          ]
+        },
+        "definition": "label_values({cluster=~\"$cluster\", job=\"integrations/tusd\"},instance)",
+        "includeAll": true,
+        "multi": true,
+        "name": "Instance",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values({cluster=~\"$cluster\", job=\"integrations/tusd\"},instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "definition": "label_values({cluster=~\"$cluster\", job=\"integrations/tusd\"},pod)",
+        "includeAll": true,
+        "multi": true,
+        "name": "pod",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values({cluster=~\"$cluster\", job=\"integrations/tusd\"},pod)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Tusd Metrics",
-  "uid": "den56bhfbuosgf",
-  "version": 32
+  "title": "Tusd Metrics 2 version",
+  "uid": "den56bhfbuosgfwred",
+  "version": 47
 }
