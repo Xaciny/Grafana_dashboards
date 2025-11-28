@@ -1,1 +1,1 @@
-Basic dashboards for grafana
+Dashboard for grafana (based on my need)
