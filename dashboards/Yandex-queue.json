@@ -18,32 +18,45 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 35,
+  "id": 39,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Global",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "prom"
       },
+      "description": "Количество сообщений в очереди",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -51,12 +64,12 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
+        "colorMode": "background",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "percentChangeColorMode": "standard",
@@ -68,10 +81,14 @@
           "values": false
         },
         "showPercentChange": false,
+        "text": {
+          "titleSize": 15,
+          "valueSize": 20
+        },
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -140,7 +157,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -153,9 +171,203 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
-        "y": 7
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "queue_messages_oldest_age_milliseconds{queue=~\"$queue\"} / 1000",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "{{queue}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Oldest age of message in queue",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prom"
+          },
+          "editorMode": "code",
+          "expr": "sum by (queue) (\r\n  rate(queue_messages_empty_receive_attempts_count_per_second{job=\"integrations/yandex\", queue=~\"$queue\"}[10m])\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Empty attempts to read from the queue",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
       },
       "id": 2,
       "options": {
@@ -171,7 +383,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -236,7 +448,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -250,8 +463,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 15
+        "x": 12,
+        "y": 16
       },
       "id": 5,
       "options": {
@@ -267,7 +480,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
         {
           "datasource": {
@@ -285,10 +498,24 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Errors, fails and etc",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "prom"
       },
+      "description": "показывает холостые запросы",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -332,7 +559,106 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "queue_messages_empty_receive_attempts_count_per_second{queue=~\"$queue\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "{{queue}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Empty receive attempts / sec",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "description": "Таймауты в очередях",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -347,9 +673,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 15
+        "y": 25
       },
-      "id": 4,
+      "id": 9,
       "options": {
         "legend": {
           "calcs": [],
@@ -363,21 +689,136 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.1.0",
       "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "queue_messages_request_timeouts_count_per_second{queue=~\"$queue\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "timeout per {{queue}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Request timeouts / sec",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "description": "удаленные пользователем или очередь чистится через purge",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "queue_messages_deleted_count_per_second{queue=~\"$queue\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "deleted messages in {{queue}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prom"
           },
-          "editorMode": "code",
-          "expr": "sum by (queue) (\r\n  rate(queue_messages_empty_receive_attempts_count_per_second{job=\"integrations/yandex\", queue=~\"$queue\"}[10m])\r\n)",
-          "legendFormat": "__auto",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "queue_messages_purged_count_per_second{queue=~\"$queue\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "purged messages in {{queue}}",
           "range": true,
-          "refId": "A"
+          "refId": "B",
+          "useBackend": false
         }
       ],
-      "title": "Empty attempts to read from the queue",
+      "title": "Deleted vs Purged (stacked)",
       "type": "timeseries"
     }
   ],
@@ -388,11 +829,9 @@
     "list": [
       {
         "current": {
-          "text": [
-            "counters"
-          ],
+          "text": "All",
           "value": [
-            "counters"
+            "$__all"
           ]
         },
         "datasource": {
@@ -419,12 +858,12 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Yandex",
-  "uid": "dentq6r94ui9sa",
-  "version": 17
+  "title": "Yandex queue",
+  "uid": "c8b4085d-new-dashboard-queue",
+  "version": 1
 }
