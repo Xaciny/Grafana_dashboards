@@ -120,7 +120,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 *\r\nsum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])) + sum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])),\r\n  1\r\n)",
+          "expr": "100 *\r\nsum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])) + sum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])),\r\n  1\r\n)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -183,7 +183,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 *\r\nsum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])) + sum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])),\r\n  1\r\n)",
+          "expr": "100 *\r\nsum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__interval_ms])) + sum(rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__interval_ms])),\r\n  1\r\n)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -251,7 +251,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "rate(gorush_total_push_count{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])",
+          "expr": "rate(gorush_total_push_count{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__interval_ms])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -392,7 +392,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "rate success tasks"
+                  "rate submitted tasks"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -435,7 +435,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(gorush_submitted_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])\r\n",
+          "expr": "rate(gorush_submitted_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])\r\n",
           "legendFormat": "rate submitted tasks",
           "range": true,
           "refId": "A"
@@ -446,7 +446,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])",
+          "expr": "rate(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])",
           "hide": false,
           "instant": false,
           "legendFormat": "rate success tasks",
@@ -459,7 +459,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])",
+          "expr": "rate(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])",
           "hide": false,
           "instant": false,
           "legendFormat": "rate failure tasks",
@@ -555,7 +555,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(increase(gorush_submitted_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n-\r\nsum(increase(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n-\r\nsum(increase(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n",
+          "expr": "sum(increase(gorush_submitted_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n-\r\nsum(increase(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n-\r\nsum(increase(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -706,7 +706,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "expr": "sum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "legendFormat": "android success rate",
           "range": true,
           "refId": "A"
@@ -717,7 +717,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "sum(rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "expr": "sum(rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "hide": false,
           "instant": false,
           "legendFormat": "android fail rate",
@@ -784,7 +784,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 *\r\nsum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n+ sum(rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])),\r\n  1\r\n)\r\n",
+          "expr": "100 *\r\nsum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_android_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n+ sum(rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])),\r\n  1\r\n)\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -879,7 +879,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (pod) (rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n",
+          "expr": "sum by (pod) (rate(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -985,8 +985,8 @@
       "targets": [
         {
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "editorMode": "code",
+          "expr": "sum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "ios success rate",
@@ -1000,8 +1000,8 @@
             "uid": "prom"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sum(rate(gorush_ios_error{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "editorMode": "code",
+          "expr": "sum(rate(gorush_ios_error{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1071,7 +1071,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 *\r\nsum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n+ sum(rate(gorush_ios_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])),\r\n  1\r\n)\r\n",
+          "expr": "100 *\r\nsum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n+ sum(rate(gorush_ios_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])),\r\n  1\r\n)\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1166,7 +1166,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (pod) (rate(gorush_ios_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n",
+          "expr": "sum by (pod) (rate(gorush_ios_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1273,7 +1273,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "expr": "sum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "huawei success rate",
@@ -1288,7 +1288,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sum(rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))",
+          "expr": "sum(rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1358,7 +1358,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 *\r\nsum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n+ sum(rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms])),\r\n  1\r\n)\r\n",
+          "expr": "100 *\r\nsum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n/\r\nclamp_min(\r\n  sum(rate(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n+ sum(rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])),\r\n  1\r\n)\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1453,7 +1453,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (pod) (rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[$__rate_interval_ms]))\r\n",
+          "expr": "sum by (pod) (rate(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))\r\n",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1505,10 +1505,9 @@
         "type": "query"
       },
       {
-        "allValue": "",
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "text": "gorush-56fc5f94c7-df4zd",
+          "value": "gorush-56fc5f94c7-df4zd"
         },
         "definition": "label_values(gorush_total_push_count{instance=\"$node\"},pod)",
         "description": "",
@@ -1547,12 +1546,12 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "gorush Dashboard",
   "uid": "107d4c76-9dc0-4393-87ea-68c2d73ca507",
-  "version": 44
+  "version": 51
 }
