@@ -11,3 +11,5 @@ tusd - https://github.com/tus/tusd
 srs - https://github.com/ossrs/srs
 
 gorush - https://github.com/appleboy/gorush
+
+nvidia gpu exporter - https://github.com/utkuozdemir/nvidia_gpu_exporter
