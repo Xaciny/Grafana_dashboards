@@ -39,72 +39,6 @@
         "type": "prometheus",
         "uid": "prom"
       },
-      "description": "общий процент ошибок в задачах",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 0,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.1.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "100 *\r\n(\r\n  sum(rate(gorush_failure_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[5m])) or vector(0)\r\n)\r\n/\r\nclamp_min(\r\n  (\r\n    (sum(rate(gorush_success_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[5m])) or vector(0))\r\n    +\r\n    (sum(rate(gorush_failure_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[5m])) or vector(0))\r\n  ),\r\n  1\r\n)\r\n",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Error rate (%)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
       "description": "глобальный success rate (по умолчанию 100)",
       "fieldConfig": {
         "defaults": {
@@ -127,7 +61,7 @@
       "gridPos": {
         "h": 8,
         "w": 4,
-        "x": 4,
+        "x": 0,
         "y": 1
       },
       "id": 3,
@@ -156,7 +90,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "100 - (\r\n  100 *\r\n  (sum(increase(gorush_failure_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n  /\r\n  clamp_min(\r\n    (\r\n      (sum(increase(gorush_success_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n    + (sum(increase(gorush_failure_tasks{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n    ),\r\n    1\r\n  )\r\n)\r\n",
+          "expr": "100 - (\r\n  100 *\r\n  (sum(increase(gorush_failure_tasks{cluster=~\"$cluster\",namespace=~\"$namespace\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n  /\r\n  clamp_min(\r\n    (\r\n      (sum(increase(gorush_success_tasks{cluster=~\"$cluster\",namespace=~\"$namespace\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n    + (sum(increase(gorush_failure_tasks{cluster=~\"$cluster\",namespace=~\"$namespace\",pod=~\"$pod\"}[$__range])) or vector(0))\r\n    ),\r\n    1\r\n  )\r\n)\r\n",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -229,8 +163,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 16,
-        "x": 8,
+        "w": 20,
+        "x": 4,
         "y": 1
       },
       "id": 2,
@@ -251,7 +185,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "round(sum(increase(gorush_submitted_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))\r\n",
+          "expr": "round(sum(increase(gorush_submitted_tasks{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])))\r\n",
           "interval": "5m",
           "legendFormat": "call submitted tasks",
           "range": true,
@@ -263,7 +197,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "round(sum(increase(gorush_success_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
+          "expr": "round(sum(increase(gorush_success_tasks{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])))",
           "hide": false,
           "instant": false,
           "interval": "5m",
@@ -277,7 +211,7 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "round(sum(increase(gorush_failure_tasks{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
+          "expr": "round(sum(increase(gorush_failure_tasks{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])))",
           "hide": false,
           "instant": false,
           "interval": "5m",
@@ -308,10 +242,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -351,7 +281,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "round(\r\n  sum(increase(gorush_total_push_count{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[$__range]))\r\n)\r\n",
+          "expr": "round(\r\n  sum(increase(gorush_total_push_count{cluster=~\"$cluster\",namespace=~\"$namespace\",pod=~\"$pod\"}[$__range]))\r\n)\r\n",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -399,9 +329,11 @@
       },
       "id": 8,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -409,22 +341,26 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "editorMode": "code",
-          "expr": "round(increase(gorush_busy_workers{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m]))",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "round(increase(gorush_busy_workers{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m]))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "Busy workers",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -578,8 +514,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 8,
+        "h": 8,
+        "w": 24,
         "x": 0,
         "y": 24
       },
@@ -601,9 +537,9 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "round(sum(increase(gorush_android_success{cluster=~\"$cluster\",instance=~\"$node\",pod=~\"$pod\"}[5m])))",
+          "expr": "round(sum(increase(gorush_${platform}_success{cluster=~\"$cluster\",namespace=~\"$namespace\",pod=~\"$pod\"}[5m])))",
           "interval": "5m",
-          "legendFormat": "android success calls",
+          "legendFormat": "${platform} success calls",
           "range": true,
           "refId": "A"
         },
@@ -613,248 +549,16 @@
             "uid": "prom"
           },
           "editorMode": "code",
-          "expr": "round(sum(increase(gorush_android_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
+          "expr": "round(\r\n  sum(\r\n    increase(gorush_${platform}_fail{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])\r\n    or\r\n    increase(gorush_${platform}_error{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])\r\n  )\r\n)\r\n",
           "hide": false,
           "instant": false,
           "interval": "5m",
-          "legendFormat": "android fail calls",
+          "legendFormat": "${platform} fail calls",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Android throughput: success vs fail / sec",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic-by-name"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 24
-      },
-      "id": 13,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.0",
-      "targets": [
-        {
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "round(sum(increase(gorush_ios_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "interval": "5m",
-          "legendFormat": "ios success calls",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prom"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "round(sum(increase(gorush_ios_error{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "interval": "5m",
-          "legendFormat": "ios fail calls",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        }
-      ],
-      "title": "IOS throughput: success vs fail / sec",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic-by-name"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 24
-      },
-      "id": 17,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.0",
-      "targets": [
-        {
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "round(sum(increase(gorush_huawei_success{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "interval": "5m",
-          "legendFormat": "huawei success calls",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prom"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "round(sum(increase(gorush_huawei_fail{cluster=~\"$cluster\", instance=~\"$node\", pod=~\"$pod\"}[5m])))",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "interval": "5m",
-          "legendFormat": "huawei fail calls",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        }
-      ],
-      "title": "Huawei throughput: success vs fail / sec",
+      "title": "${platform} throughput: success vs fail / sec",
       "type": "timeseries"
     }
   ],
@@ -883,16 +587,16 @@
       },
       {
         "current": {
-          "text": "cl1lbhhgl4chft183ckm-ytom",
-          "value": "cl1lbhhgl4chft183ckm-ytom"
+          "text": "prod",
+          "value": "prod"
         },
-        "definition": "label_values(gorush_submitted_tasks{cluster=\"$cluster\"},instance)",
-        "label": "Node",
-        "name": "node",
+        "definition": "label_values(gorush_submitted_tasks{cluster=\"$cluster\"},namespace)",
+        "label": "Namespace",
+        "name": "namespace",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(gorush_submitted_tasks{cluster=\"$cluster\"},instance)",
+          "query": "label_values(gorush_submitted_tasks{cluster=\"$cluster\"},namespace)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -904,7 +608,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "definition": "label_values(gorush_total_push_count{instance=\"$node\"},pod)",
+        "definition": "label_values(gorush_total_push_count{namespace=\"$namespace\"},pod)",
         "description": "",
         "includeAll": true,
         "label": "Pod",
@@ -912,7 +616,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(gorush_total_push_count{instance=\"$node\"},pod)",
+          "query": "label_values(gorush_total_push_count{namespace=\"$namespace\"},pod)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -939,6 +643,34 @@
         "type": "textbox"
       },
       {
+        "allowCustomValue": false,
+        "current": {
+          "text": "ios",
+          "value": "ios"
+        },
+        "includeAll": false,
+        "name": "platform",
+        "options": [
+          {
+            "selected": false,
+            "text": "android",
+            "value": "android"
+          },
+          {
+            "selected": true,
+            "text": "ios",
+            "value": "ios"
+          },
+          {
+            "selected": false,
+            "text": "huawei",
+            "value": "huawei"
+          }
+        ],
+        "query": "android,ios,huawei",
+        "type": "custom"
+      },
+      {
         "current": {
           "text": "error|err=|fatal|panic|exception",
           "value": "error|err=|fatal|panic|exception"
@@ -954,12 +686,12 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "gorush Dashboard",
   "uid": "107d4c76-9dc0-4393-87ea-68c2d73ca507",
-  "version": 89
+  "version": 99
 }
